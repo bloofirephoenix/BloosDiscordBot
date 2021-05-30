@@ -5,6 +5,9 @@
         "channel-2"
     ],
 
+    "enable-anger": true,
+    "max_messages": 5,
+    "sleep_time": 86400,
     "angry-messages": [
         ">:(",
         "dont @ me",
