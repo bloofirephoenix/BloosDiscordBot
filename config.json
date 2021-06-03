@@ -6,8 +6,7 @@
     ],
 
     "enable-anger": true,
-    "max_messages": 5,
-    "sleep_time": 86400,
+    "angry-channel": "channel",
     "angry-messages": [
         ">:(",
         "dont @ me",
