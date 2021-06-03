@@ -10,11 +10,6 @@ CONFIG = json.loads(open("config.json","r").read())
 @client.event
 async def on_ready():
     print("I logged in btw")
-    
-    if CONFIG["enable-anger"] == False:
-        await client.change_presence(status=discord.Status.do_not_disturb,activity=None)
-    else:
-        await client.change_presence(status=discord.Status.online,activity=None)
 
 @client.event
 async def on_message(message):
@@ -26,16 +21,29 @@ async def on_message(message):
                 # now actually do the thing with the reactions
                 await message.add_reaction('❌')
                 await message.add_reaction('✅')
-    #haha funny meme
-    if CONFIG["enable-anger"] == True:
-        if str(message.channel.id) == CONFIG["angry-channel"]:
-            if message.mention_everyone == False:
-                for user in message.mentions:
-                    if type(user) == discord.Member:
-                        if user.id == client.user.id:
-                            r = random.randint(0,len(CONFIG["angry-messages"])-1)
-                            m = CONFIG["angry-messages"][r]
-                            await message.channel.send(m)
-                            break
+                return
+    #triggers and responses
+    for entry in CONFIG["responses"]:
+        respond = False
+        # check triggers
+        for trigger in entry["triggers"]:
+            if trigger["type"] == "TEXT":
+                if message.content == trigger["data"]:
+                    respond = True
+            
+            elif trigger["type"] == "EMBED":
+                for embed in message.embeds:
+                    if embed.url == trigger["data"]:
+                        respond = True
+
+            elif trigger["type"] == "CONTAINS":
+                if message.content.__contains__(trigger["data"]):
+                    respond = True
+        
+        if respond == True:
+            # pick a random response
+            r = random.randint(0,len(entry["responses"])-1)
+            m = entry["responses"][r]
+            await message.channel.send(m)
 
 client.run(CONFIG["discord-token"])

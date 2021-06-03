@@ -4,17 +4,42 @@
         "channel-1",
         "channel-2"
     ],
-
-    "enable-anger": true,
-    "angry-channel": "channel",
-    "angry-messages": [
-        ">:(",
-        "dont @ me",
-        "what the heck",
-        "why do u do this to me",
-        "evil",
-        "why",
-        "i will ban u",
-        "u know im mod right?"
+    "responses": [
+        {
+            "triggers": [
+                {
+                    "data": "aaa",
+                    "type": "CONTAINS"
+                }
+            ],
+            "responses": [
+                "1",
+                "2"
+            ]
+        },
+        {
+            "triggers": [
+                {
+                    "data": "aaa",
+                    "type": "TEXT"
+                }
+            ],
+            "responses": [
+                "1",
+                "2"
+            ]
+        },
+        {
+            "triggers": [
+                {
+                    "data": "https://tenor.com/view/coraline-dad-rank-discord-gif-18806856",
+                    "type": "EMBED"
+                }
+            ],
+            "responses": [
+                "1",
+                "2"
+            ]
+        }
     ]
 }
