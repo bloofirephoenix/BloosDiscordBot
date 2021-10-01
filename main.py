@@ -1,5 +1,3 @@
-import threading
-from time import sleep
 import discord
 import json
 import random
