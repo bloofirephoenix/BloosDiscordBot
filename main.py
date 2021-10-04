@@ -20,7 +20,10 @@ async def on_message(message):
                 await message.add_reaction('❌')
                 await message.add_reaction('✅')
                 return
-    #triggers and responses
+    # delete any potato no no square sent by jacob
+    await checkNewPotato(message)
+
+    # triggers and responses
     for entry in CONFIG["responses"]:
         respond = False
         # check triggers
@@ -43,5 +46,15 @@ async def on_message(message):
             r = random.randint(0,len(entry["responses"])-1)
             m = entry["responses"][r]
             await message.channel.send(m)
+
+@client.event
+async def on_message_edit(before, after):
+    await checkNewPotato(after)
+
+async def checkNewPotato(message):
+    if isinstance(message.author, discord.member.Member): # check if the message is in a server
+        if message.author.id == 540915558439190548:
+            if (":nono1:" in message.content or ":nono2:" in message.content) and ":newpotato:" in message.content:
+                await message.delete()
 
 client.run(CONFIG["discord-token"])
