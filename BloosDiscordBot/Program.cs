@@ -68,6 +68,8 @@ client.Ready += async () =>
                 config.ReactionRoles.Message, roles);
         }
     }
+
+    Console.WriteLine("Ready!");
 };
 
 await Task.Delay(-1);
